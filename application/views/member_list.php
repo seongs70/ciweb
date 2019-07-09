@@ -9,7 +9,8 @@
         }
     }
 </script>
-
+<div class="alert mycolor1" role="alert">사용자</div>
+<br/>
 <form name="form1" action="" method="post">
     <div class="row">
         <div class="col-3" align="left">
@@ -50,7 +51,7 @@
         $tel3 = trim(substr($row->tel,7,4));
         $tel = $tel1 . "-" . $tel2 . "-" . $tel3;
         //삼항 연산자
-        $rank = $row == '0' ? '직원' : '관리자';
+        $rank = $row->rank == '0' ? '직원' : '관리자';
     ?>
     <tr>
         <td><?= $no ?></td>
@@ -63,27 +64,32 @@
     <?
         }
     ?>
+
 </table>
-<div align="center">
-    <nav aria-label="Page navigation example">
-        <ul class="pagination pagination-sm justify-content-center mymargin5">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="PRevious">
-                    <span aira-hidden="true">◁</span>
-                    <span class="sr-only">Previous</span>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link mycolor1" href="#">1</a></li>
-            <li class="page-item"><a class="page-link active" href="#">2</a></li>
-            <li class="page-item"><a class="page-link active" href="#">3</a></li>
-            <li class="page-item"><a class="page-link active" href="#">4</a></li>
-            <li class="page-item"><a class="page-link active" href="#">5</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aira-hidden="true">▷</span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+<div class="pagingbox">
+    <?=$pagination?>
+
 </div>
+<!--<div align="center">-->
+<!--    <nav aria-label="Page navigation example">-->
+<!--        <ul class="pagination pagination-sm justify-content-center mymargin5">-->
+<!--            <li class="page-item">-->
+<!--                <a class="page-link" href="#" aria-label="PRevious">-->
+<!--                    <span aira-hidden="true">◁</span>-->
+<!--                    <span class="sr-only">Previous</span>-->
+<!--                </a>-->
+<!--            </li>-->
+<!--            <li class="page-item"><a class="page-link mycolor1" href="#">1</a></li>-->
+<!--            <li class="page-item"><a class="page-link active" href="#">2</a></li>-->
+<!--            <li class="page-item"><a class="page-link active" href="#">3</a></li>-->
+<!--            <li class="page-item"><a class="page-link active" href="#">4</a></li>-->
+<!--            <li class="page-item"><a class="page-link active" href="#">5</a></li>-->
+<!--            <li class="page-item">-->
+<!--                <a class="page-link" href="#" aria-label="Next">-->
+<!--                    <span aira-hidden="true">▷</span>-->
+<!--                    <span class="sr-only">Next</span>-->
+<!--                </a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </nav>-->
+<!--</div>-->

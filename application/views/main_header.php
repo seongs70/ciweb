@@ -7,8 +7,13 @@
     <title>판매관리</title>
     <link href="/my/css/bootstrap.css" rel="stylesheet" />
     <link href="/my/css/my.css" rel="stylesheet" />
+    <link href="/my/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+    <link href="/my/css/all.min.css" rel="stylesheet" />
     <script src="/my/js/jquery-3.4.1.min.js"></script>
     <script src="/my/js/bootstrap.min.js"></script>
+    <script src="/my/js/moment-with-locales.min.js"></script>
+    <script src="/my/js/bootstrap-datetimepicker.min.js"></script>
+
   </head>
 <body>
 <div class="container">
@@ -20,8 +25,8 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item"><a class="nav-link" href="#">매입</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">매출</a></li>
+          <li class="nav-item"><a class="nav-link" href="/jangbui">매입</a></li>
+          <li class="nav-item"><a class="nav-link" href="/jangbuo">매출</a></li>
           <li class="nav-item"><a class="nav-link" href="#">기간조회</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -36,8 +41,8 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">기초정보</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">구분</a>
-              <a class="dropdown-item" href="#">제품</a>
+              <a class="dropdown-item" href="/gubun">구분</a>
+              <a class="dropdown-item" href="/product">제품</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/member">사용자</a>
             </div>

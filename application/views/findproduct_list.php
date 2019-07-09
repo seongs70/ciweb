@@ -2,18 +2,26 @@
     function find_text()
     {
         if(!form1.text1.value){
-            form1.action="/product/lists";
+            form1.action="/findproduct/lists";
         } else {
-            form1.action="/product/lists/text1/" + form1.text1.value;
+            form1.action="/findproduct/lists/text1/" + form1.text1.value;
             form1.submit();
         }
     }
+    function  SendProduct(no,name,price)
+    {
+        opener.form1.product_no.value = no;
+        opener.form1.product_name.value = name;
+        opener.form1.price.value = price;
+        opener.form1.prices.value = Number(price) + Number(opener.form1.numo.value);
+        self.close();
+    }
 </script>
-<div class="alert mycolor1" role="alert">제품</div>
+<div class="alert mycolor1" role="alert">제품선택</div>
 <br/>
 <form name="form1" action="" method="post">
     <div class="row">
-        <div class="col-3" align="left">
+        <div class="col-6" align="left">
             <div class="input-group-addon">이름</span>
                 <input type="text" name="text1" value="<?=$text1 ?? '' ;?>" class="form-control" onkeydown="if (event.keyCode == 13 ){ find_text(); }">
                 <span class="input-group-btn">
@@ -26,8 +34,8 @@
     <?
         if(isset($text1))$tmp = $text1 ? "/text1/$text1" : "";
     ?>
-    <div class="col-xs-8" align="right">
-        <a href="/product/add<?=$tmp ?? ''; ?>" class="btn btn-primary btn-sm">추가</a>
+    <div class="col-6" align="right">
+
     </div>
 </form>
 
@@ -52,7 +60,9 @@
     <tr>
         <td><?= $no ?></td>
         <td><?=$row->gubun_name?></td>
-        <td align="left"><a href='/product/view/no/<?=$no?><?=$tmp?>'><?=$row->name?></a></td>
+        <td align="left">
+            <a href="javascript:SendProduct(<?=$no?>,'<?=$row->name?>',<?=$row->price?>);"><?=$row->name?></a>
+        </td>
         <td align="right"><?=number_format($row->price)?></td>
         <td align="right"><?=number_format($row->jaego)?></td>
     </tr>

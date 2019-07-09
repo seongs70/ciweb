@@ -36,6 +36,11 @@
         form1.prices.value = Number(form1.price.value) * Number(form1.numo.value);
         form1.bigo.focus();
     }
+
+    function find_product()
+    {
+        window.open("/findproduct","","resizable=yes,width=500,height=600");
+    }
 </script>
 
 <form name="form1" action="" method="post" enctype="multipart/form-data" class="form-inline">
@@ -60,6 +65,8 @@
         <td width="80%" align="left">
             <div class="form-inline">
                 <input type="hidden" name="product_no" value="<?=set_value("product_no"); ?>">
+                <input type="text" name="product_name" value="" class="form-control form-control-sm" disabled />
+                <input type="button" value="제품찾기" onClick="find_product();" class="form-control btn btn-sm mycolor1">
                 <select name="sel_product_no" class="form-control form-control-sm" onchange="select_product();">
                     <option value="">선택하세요</option>
                     <?php $product_no = set_value("product_no");

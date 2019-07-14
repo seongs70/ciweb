@@ -166,7 +166,7 @@ class Jangbuo extends CI_Controller {
 
             //데이터 저장
             $result = $this->jangbuo_m->updaterow($data,$no);
-            redirect("/jangbuo/lists/".$text1 . $page);
+            redirect("/jangbuo/lists/".$text1 .'/'. $page);
         }
     }
 

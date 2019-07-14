@@ -11,25 +11,28 @@
 </script>
 <div class="alert mycolor1" role="alert">제품</div>
 <br/>
-<form name="form1" action="" method="post">
-    <div class="row">
-        <div class="col-3" align="left">
-            <div class="input-group-addon">이름</span>
-                <input type="text" name="text1" value="<?=$text1 ?? '' ;?>" class="form-control" onkeydown="if (event.keyCode == 13 ){ find_text(); }">
-                <span class="input-group-btn">
+
+
+<form name="form1" action="" method="post" style="margin-bottom:15px;">
+            <div class="input-group-addon">
+                <span class="btn" style="float:left">이름</span>
+                <input type="text" style="width:150px; float:left; margin-right:10px;" name="text1" value="<?=$text1 ?? '' ;?>" class="form-control" onkeydown="if (event.keyCode == 13 ){ find_text(); }">
+                <span class="input-group-btn" style="float:left">
                     <button class="btn mycolor1" type="button" onClick="javascript:find_text();">검색
                     </button>
                 </span>
             </div>
-        </div>
-    </div>
     <?
-        if(isset($text1))$tmp = $text1 ? "/text1/$text1" : "";
+        $tmp = $text1 ? "/text1/$text1/page/$page" : "/page/$page";
     ?>
     <div class="col-xs-8" align="right">
-        <a href="/product/add<?=$tmp ?? ''; ?>" class="btn btn-primary btn-sm">추가</a>
+        <a href="/product/add<?=$tmp ?? ''; ?>" class="btn btn-primary ">추가</a>
+        <a href="/product/jaego<?=$tmp;?>" class="btn btn-sm mycolor1">재고계산</a>
     </div>
 </form>
+
+
+
 
 <table class="table table-sm table-bordered mymargin5">
     <tr class="mycolor2">
@@ -60,26 +63,7 @@
         }
     ?>
 </table>
-<div align="center">
-    <nav aria-label="Page navigation example">
-        <ul class="pagination pagination-sm justify-content-center mymargin5">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="PRevious">
-                    <span aira-hidden="true">◁</span>
-                    <span class="sr-only">Previous</span>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link mycolor1" href="#">1</a></li>
-            <li class="page-item"><a class="page-link active" href="#">2</a></li>
-            <li class="page-item"><a class="page-link active" href="#">3</a></li>
-            <li class="page-item"><a class="page-link active" href="#">4</a></li>
-            <li class="page-item"><a class="page-link active" href="#">5</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aira-hidden="true">▷</span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+<div class="pagingbox">
+    <?= $pagination ?>
+
 </div>

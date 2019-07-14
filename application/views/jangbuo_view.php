@@ -4,6 +4,7 @@ $no=$row->no;
 //삼항 연산자
 $tmp = $text1 ? "/no/$no/text1/$text1/page/$page" : "/no/$no/page/$page";
 ?>
+<?print_r($row)?>
 <br />
 
 <div class="alert mycolor1" role="alert">매출장</div>
@@ -28,7 +29,7 @@ $tmp = $text1 ? "/no/$no/text1/$text1/page/$page" : "/no/$no/page/$page";
     </tr>
     <tr>
         <td width="20%" class="mycolor2" style="vertical-align:middle">수량</td>
-        <td width="80%" align="left"><?=$row->numi;?></td>
+        <td width="80%" align="left"><?=$row->numo;?></td>
     </tr>
     <tr>
         <td width="20%" class="mycolor2" style="vertical-align:middle">금액</td>

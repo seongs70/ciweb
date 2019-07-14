@@ -11,23 +11,20 @@
 </script>
 <div class="alert mycolor1" role="alert">사용자</div>
 <br/>
-<form name="form1" action="" method="post">
-    <div class="row">
-        <div class="col-3" align="left">
-            <div class="input-group-addon">이름</span>
-                <input type="text" name="text1" value="<?=$text1 ?? '' ;?>" class="form-control" onkeydown="if (event.keyCode == 13 ){ find_text(); }">
-                <span class="input-group-btn">
+<form name="form1" action="" method="post" style="margin-bottom:15px;">
+            <div class="input-group-addon">
+                <span class="btn" style="float:left">이름</span>
+                <input type="text" style="width:150px; float:left; margin-right:10px;" name="text1" value="<?=$text1 ?? '' ;?>" class="form-control" onkeydown="if (event.keyCode == 13 ){ find_text(); }">
+                <span class="input-group-btn" style="float:left">
                     <button class="btn mycolor1" type="button" onClick="javascript:find_text();">검색
                     </button>
                 </span>
             </div>
-        </div>
-    </div>
     <?
         if(isset($text1))$tmp = $text1 ? "/text1/$text1" : "";
     ?>
     <div class="col-xs-8" align="right">
-        <a href="/member/add<?=$tmp ?? ''; ?>" class="btn btn-primary btn-sm">추가</a>
+        <a href="/member/add<?=$tmp ?? ''; ?>" class="btn btn-primary ">추가</a>
     </div>
 </form>
 
@@ -67,7 +64,7 @@
 
 </table>
 <div class="pagingbox">
-    <?=$pagination?>
+    <?= $pagination ?>
 
 </div>
 <!--<div align="center">-->

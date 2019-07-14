@@ -15,6 +15,9 @@ class Member extends CI_Controller {
     }
     public function index()
     {
+        // if($this->session->userdata('rank')!=1){
+        //     redirect("/");
+        // }
         $this->lists();
     }
 

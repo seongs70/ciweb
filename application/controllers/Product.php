@@ -23,13 +23,15 @@ class Product extends CI_Controller {
     public function lists()
     {
         $uri_array=$this->uri->uri_to_assoc(3);
-        $text1=array_key_exists("text1",$uri_array) ? urldecode($uri_array["text1"]) : "";
+
+        $text1 = array_key_exists("text1",$uri_array) ? urldecode($uri_array["text1"]) : "";
+
         //목록 읽기
 
-        if($text = ""){
-            $base_url = "/product/list/page";
+        if($text1 == ""){
+            $base_url = "/product/lists/page";
         } else {
-            $base_url = "/product/list/text1/$text1/page";
+            $base_url = "/product/lists/text1/$text1/page";
         }
         //페이지값이 몇 번째에 있는지를 나타냄 페이지위치를 4인지 6인지 자동으로 알아내려면 substr_count함수를 이용하여
         //$base_url에서 "/" 개수를 세어 1을 더하면 된다. 예로 text1값이 없는 경우 "/product/lists/page" 이므로 "/" 개수는 3이된다.
@@ -39,17 +41,21 @@ class Product extends CI_Controller {
         $config["per_page"] = 2; //페이지당 표시할 line 수
         $config["total_rows"] = $this->product_m->rowcount($text1); // 전체개수
         $config["uri_segment"] = $page_segment; // 페이지가 있는 segment
-        $config["base_url"] = $base_url; //기본 uri "/product/list/text1/값/page/페이지값"이되므로 페이지 값은 6번째에 나타난다.
+        $config["base_url"] = $base_url; //기본 uri "/member/list/text1/값/page/페이지값"이되므로 페이지 값은 6번째에 나타난다.
+
+
+
         $this->pagination->initialize($config); // 페이지네이션 초기화
 
         $data["page"] = $this->uri->segment($page_segment,0); //시작위치, 없으면 0
+
         $data["pagination"] = $this->pagination->create_links(); // 페이지 소스 생성
 
         $start = $data["page"]; //n페이지 : 시작위치
         $limit = $config["per_page"]; //페이지 당 라인수
 
         $data["text1"] = $text1;
-        $data["list"] = $this->product_m->getlist($text1,$start,$limit); // 해당피이지 자료읽기
+        $data["list"] = $this->product_m->getlist($text1,$start,$limit); // 해당페+이지 자료읽기
 
         //상단출력(메뉴)
         $this->load->view("main_header");
@@ -185,5 +191,18 @@ class Product extends CI_Controller {
             $picname = $this->upload->data("file_name");
         }
         return $picname;
+    }
+
+    public function jaego()
+    {
+        $uri_array=$this->uri->uri_to_assoc(3);
+        $text1=array_key_exists("text1",$uri_array) ? "/text1/" . urldecode($uri_array["text1"]) : "";
+        $page = array_key_exists("page", $uri_array) ? "/page/" . urldecode($uri_array["page"]) : 0;
+
+        $data["text1"] = $text1;
+        $data["page"] = $page;
+        $this->product_m->cal_jaego();
+
+        redirect("/product/lists" . $text1 . $page);
     }
 }

@@ -39,9 +39,10 @@
     }
 </script>
 <?
-
+print_r($row);
 
 ?>
+
 <div class="alert mycolor1" role="alert">매출장</div>
 <form name="form1" action="" method="post" enctype="multipart/form-data" class="form-inline">
 <table class="table table-sm table-bordered mymargin5">
@@ -103,7 +104,7 @@
         <td width="20%" class="mycolor2" style="vertical-align:middle">수량</td>
         <td width="80%" align="left">
             <div class="form-inline">
-                <input type="text" name="numo" value="<?=$row->product_no?>" class="form-control form-control-sm" onChange="cal_prices();"/>
+                <input type="text" name="numo" value="<?=$row->numo?>" class="form-control form-control-sm" onChange="cal_prices();"/>
             </div>
         </td>
     </tr>

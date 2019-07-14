@@ -1,7 +1,7 @@
 <script>
     function find_text()
     {
-        form1.action="/jangbui/lists/text1/"+form1.tex1.value+"/page";
+        form1.action="/jangbui/lists/text1/"+form1.text1.value+"/page";
         form1.submit();
     }
     $(function(){
@@ -73,26 +73,7 @@
         }
     ?>
 </table>
-<div align="center">
-    <nav aria-label="Page navigation example">
-        <ul class="pagination pagination-sm justify-content-center mymargin5">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="PRevious">
-                    <span aira-hidden="true">◁</span>
-                    <span class="sr-only">Previous</span>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link mycolor1" href="#">1</a></li>
-            <li class="page-item"><a class="page-link active" href="#">2</a></li>
-            <li class="page-item"><a class="page-link active" href="#">3</a></li>
-            <li class="page-item"><a class="page-link active" href="#">4</a></li>
-            <li class="page-item"><a class="page-link active" href="#">5</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aira-hidden="true">▷</span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+<div class="pagingbox">
+    <?= $pagination ?>
+
 </div>

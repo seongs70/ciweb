@@ -58,7 +58,8 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array();
+//세션을 일일이  해당부분 선언하는것보다 오토르데엇 선언하면 자동으로 로드된다.
+$autoload['libraries'] = array("session");
 
 /*
 | -------------------------------------------------------------------

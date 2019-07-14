@@ -125,7 +125,7 @@ class Jangbui extends CI_Controller {
 
             //데이터 저장
             $result = $this->jangbui_m->insertrow($data);
-            redirect("/jangbui/lists/".$text1 . $page);
+            redirect("/jangbui/lists/".$text1 .'/'. $page);
         }
     }
 

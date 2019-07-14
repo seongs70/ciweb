@@ -46,5 +46,29 @@ class Product_m extends CI_Model
         }
         return $this->db->query($sql)->num_rows();
     }
+
+    public function cal_jaego()
+        {
+            $sql = "drop table if exists temp;";
+            $this->db->query($sql); //temp테이블이 있으면 삭제
+
+            $sql="create table temp(
+                no int not null auto_increment,
+                product_no int,
+                jaego int default 0,
+                primary key(no) );";
+            $this->db->query($sql); // temp 테이블 생성
+
+            $sql="update product set jaego=0;";
+            $this->db->query($sql); // jaego 필드값 0으로 초기화
+
+            $sql="insert into temp (product_no, jaego) select product_no, sum(numi)-sum(numo) from jangbu
+            group by product_no;";
+            $this->db->query($sql); // jaego 계산
+
+            $sql="update product inner join temp on product.no=temp.product_no set product.jaego=temp.jaego;";
+            $this->db->query($sql);//jaego값 product테이블에 복사
+
+        }
 }
 ?>

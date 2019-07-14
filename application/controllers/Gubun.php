@@ -21,13 +21,15 @@ class Gubun extends CI_Controller {
     public function lists()
     {
         $uri_array=$this->uri->uri_to_assoc(3);
-        $text1=array_key_exists("text1",$uri_array) ? urldecode($uri_array["text1"]) : "";
+
+        $text1 = array_key_exists("text1",$uri_array) ? urldecode($uri_array["text1"]) : "";
+
         //목록 읽기
 
-        if($text = ""){
-            $base_url = "/gubun/list/page";
+        if($text1 == ""){
+            $base_url = "/gubun/lists/page";
         } else {
-            $base_url = "/gubun/list/text1/$text1/page";
+            $base_url = "/gubun/lists/text1/$text1/page";
         }
         //페이지값이 몇 번째에 있는지를 나타냄 페이지위치를 4인지 6인지 자동으로 알아내려면 substr_count함수를 이용하여
         //$base_url에서 "/" 개수를 세어 1을 더하면 된다. 예로 text1값이 없는 경우 "/gubun/lists/page" 이므로 "/" 개수는 3이된다.
@@ -138,7 +140,7 @@ class Gubun extends CI_Controller {
 
             $data = array(
                 'name' => $this->input->post("name",true),
-            
+
             );
             //데이터 저장
             $result = $this->gubun_m->updaterow($data,$no);

@@ -14,6 +14,8 @@ class Product extends CI_Controller {
         $this->load->library('pagination');
         //이미지 업로드
         $this->load->library('upload');
+        //섬네일 이미지
+        $this->load->library('image_lib');
     }
     public function index()
     {
@@ -183,12 +185,28 @@ class Product extends CI_Controller {
         $config['upload_path'] = './product_img';
         $config['allowed_types'] = 'gif|jpg|png';
         $config['overwrite'] = TRUE;
+        $config['max_size']   = 10000000;
+        $config['max_width']  = 10000;
+        $config['max_height'] = 10000;
         $this->upload->initialize($config);
 
         if(!$this->upload->do_upload('pic')){
             $picname="";
         } else {
             $picname = $this->upload->data("file_name");
+
+            // 썸네일 환경 설정
+            $config['image_library'] = 'gd2'; // g2 라이브러리 이용 선언
+            $config['source_image'] = './product_img/'.$picname; // 원본 사진이름
+            $config['thumb_marker'] = '';
+            $config['new_image'] = './product_img/thumb'; //thumb 저장 폴더
+            $config['create_thumb'] = 'TRUE';
+            $config['maintain_ratio'] = 'TRUE'; // 가로세로 비율 유지
+            $config['width'] = 200; //thumb 사진 가로길이
+            $config['height'] = 150; //thumb 사진 세로길이
+            $this->image_lib->initialize($config);//설정 적용
+
+            $this->image_lib->resize();
         }
         return $picname;
     }

@@ -19,6 +19,15 @@ class Gigan_m extends CI_Model
         $sql = "select * from product order by name";
         return $this->db->query($sql)->result();
     }
+    public function getlist_all($text1,$text2,$text3)
+    {
+        if($text3=="0"){//전체인 경우
+            $sql ="select jangbu.*, product.name as product_name from jangbu left join product on jangbu.product_no = product.no where jangbu.writeday between '$text1' and '$text2' order by jangbu.no";
+        } else {
+            $sql ="select jangbu.*, product.name as product_name from jangbu left join product on jangbu.product_no = product.no where jangbu.writeday between '$text1' and '$text2' order by jangbu.no";
+        }
+        return $this->db->query($sql)->result();
+    }
 
     public function rowcount($text1,$text2,$text3)
     {

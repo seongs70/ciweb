@@ -17,6 +17,10 @@ class Gigan extends CI_Controller {
         date_default_timezone_set("Asia/Seoul");
         // 오늘날짜
         $today = date("Y-m-d");
+        //엑셀
+        $this->load->library('PHPExcel');
+
+        date_default_timezone_set('Asia/Seoul');
     }
     public function index()
     {
@@ -66,5 +70,85 @@ class Gigan extends CI_Controller {
 
     }
 
+    public function excel()
+    {
+        $uri_array=$this->uri->uri_to_assoc(3); // 검색 조건 구하기
+        $text1=array_key_exists("text1",$uri_array) ? urldecode($uri_array["text1"]) : date("Y-m-d",strtotime('-1 month'));
+        $text2=array_key_exists("text2",$uri_array) ? urldecode($uri_array["text2"]) : date("Y-m-d");
+        $text3=array_key_exists("text3",$uri_array) ? urldecode($uri_array["text3"]) : '0';
+        $page = array_key_exists("page", $uri_array) ? "/page/" . urldecode($uri_array["page"]) : 0;
+
+        $count = $this->gigan_m->rowcount($text1,$text2,$text3); //레코드 개수
+        $list = $this->gigan_m->getlist_all($text1,$text2,$text3); //모든 자료 얻기
+
+        $objPHPExcel = new PHPExcel();
+
+        // 각 칼럼 (너비, 정렬)
+        $objPHPExcel->getActiveSheet()->getColumnDimension("A")->setWidth(12);
+        $objPHPExcel->getActiveSheet()->getColumnDimension("B")->setWidth(25);
+        $objPHPExcel->getActiveSheet()->getColumnDimension("C")->setWidth(12);
+        $objPHPExcel->getActiveSheet()->getColumnDimension("D")->setWidth(12);
+        $objPHPExcel->getActiveSheet()->getColumnDimension("E")->setWidth(12);
+        $objPHPExcel->getActiveSheet()->getColumnDimension("F")->setWidth(12);
+        $objPHPExcel->getActiveSheet()->getColumnDimension("G")->setWidth(12);
+
+        $objPHPExcel->getActiveSheet()->getStyle("A")->getAlignment()->setHorizontal(PHPExcel_style_Alignment::HORIZONTAL_CENTER);
+        $objPHPExcel->getActiveSheet()->getStyle("B")->getAlignment()->setHorizontal(PHPExcel_style_Alignment::HORIZONTAL_LEFT);
+        $objPHPExcel->getActiveSheet()->getStyle("C:F")->getAlignment()->setHorizontal(PHPExcel_style_Alignment::HORIZONTAL_RIGHT);
+        $objPHPExcel->getActiveSheet()->getStyle("G")->getAlignment()->setHorizontal(PHPExcel_style_Alignment::HORIZONTAL_LEFT);
+
+        //제목 (글자 크기, 굵게)
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue("A1", "매출입장");
+        $objPHPExcel->getActiveSheet()->getStyle("A1")->getFont()->setSize(13);
+        $objPHPExcel->getActiveSheet()->getStyle("A1")->getFont()->setBold(true);
+
+        //기간(정렬)
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue("G1", '기간:' . $text1 . "-" . $text2);
+        $objPHPExcel->getActiveSheet()->getStyle("G1")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+
+        //2행 : 헤더 가운데 정렬
+        $objPHPExcel->getActiveSheet()->getStyle("A2:G2")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+        //헤더 배경색(밝은 회색)
+        $objPHPExcel->getActiveSheet()->getStyle("A2:G2")->getFill()->getFillType(PHPExcel_Style_Fill::FILL_SOLID);
+        $objPHPExcel->getActiveSheet()->getStyle("A2:G2")->getFill()->getStartColor()->setARGB('FFCCCCCC');
+
+        //헤더 글자 출력
+        $objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue("A2","날짜")
+            ->setCellValue("B2","제품명")
+            ->setCellValue("C2","단가")
+            ->setCellValue("D2","매입수량")
+            ->setCellValue("E2","매출수량")
+            ->setCellValue("F2","금액")
+            ->setCellValue("G2","비고");
+            $i=3;
+            foreach ( $list as $row) //3행부터 자료 출력
+            {
+                $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue("A$i",$row->writeday)
+                ->setCellValue("B$i",$row->product_name)
+                ->setCellValue("C$i",$row->price ? $row->price : "")
+                ->setCellValue("D$i",$row->numi ? $row->numi : "")
+                ->setCellValue("E$i",$row->numo ? $row->numo : "")
+                ->setCellValue("F$i",$row->prices ? $row->prices : "")
+                ->setCellValue("G$i",$row->bigo);
+                $i++;
+            }
+            $objPHPExcel->setActiveSheetIndex(0);
+
+            $fname = "매출입장($text1.$text2).xlsx";//파일이름 생성
+            $fname = iconv("UTF-8","EUC-KR",$fname);//UTF8->ECU-KR로 변환
+
+            header("Content-Type: application/vnd.ms-excel");
+            header("Content-Disposition: attachment;filename=$fname");
+            header("Cache-Control: max-age=0");
+            header("Cache-Control: max-age=1");
+
+            $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
+            $objWriter->save("php://output");// xlsx형식으로 파일 출력
+
+
+    }
 
 }

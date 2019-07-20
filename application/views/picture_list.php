@@ -2,22 +2,38 @@
     function find_text()
     {
         if(!form1.text1.value){
-            form1.action="/findproduct/lists";
+            form1.action="/picture/lists";
         } else {
-            form1.action="/findproduct/lists/text1/" + form1.text1.value;
+            form1.action="/picture/lists/text1/" + form1.text1.value;
             form1.submit();
         }
     }
-    function  SendProduct(no,name,price)
+    function zoomimage(iname,pname)
     {
-        opener.form1.product_no.value = no;
-        opener.form1.product_name.value = name;
-        opener.form1.price.value = price;
-        opener.form1.prices.value = Number(price) + Number(opener.form1.numo.value);
-        self.close();
+        w = window.open("/picture/zoom/iname/"+iname+"/pname/"+pname , "imageview","resizable = yes, scrollbars = yes, status = no, width=800, height = 600");
+        w.focus();
     }
 </script>
-<div class="alert mycolor1" role="alert">제품선택</div>
+<style>
+    .mythumb_box {
+        font-size:14px; text-align:center;
+        border:1px solid lightgray; padding:3px;
+        margin:5px 0px 5px 0px;
+    }
+    .mythumb_image{
+        width:150px; height:150px;
+        margin-bottom:3px;
+    }
+    .mythumb_text{
+        border:1px solid lightgray; background-color:lightsteelblue;
+        padding:3px;
+    }
+    .mythumb_bigimage{
+        height:550px; max-width:100%;
+        margin-bottom:3px;
+    }
+</style>
+<div class="alert mycolor1" role="alert">제품사진</div>
 <br/>
 <form name="form1" action="" method="post">
     <div class="row">
@@ -70,3 +86,25 @@
         }
     ?>
 </table>
+
+<div class="row">
+    <?
+        foreach($list as $row)
+        {
+            $iname = $row->pic ? $row->pic : "";
+            $pname = $row->name;
+    ?>
+    <div class="col-3">
+        <div class="mythumb_box">
+            <a href="javascript:zoomimage('<?=$iname?>','<?=$pname?>');">
+                <img src="/product_img/thumb/<?=$iname?>" class="mythumb_image" alt="">
+            </a>
+            <div class="mythumb_text"><?=$pname?></div>
+        </div>
+    </div>
+
+<?
+    }
+?>
+
+</div>

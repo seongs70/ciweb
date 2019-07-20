@@ -10,6 +10,7 @@ class Login extends CI_Controller {
         $this->load->model("login_m");
         //헬퍼함수
         $this->load->helper(array("url","date"));
+        $this->load->library('session');
     }
     public function index()
     {
@@ -21,15 +22,15 @@ class Login extends CI_Controller {
         $uid = $this->input->post("uid",TRUE);
         $pwd = $this->input->post("pwd",TRUE);
 
-        $row=$this->login_m->getrow($uid,$pwd);
-        if($row)
-        {
-            $data=array(
-                "uid" => $row->uid,
-                "rank" => $row->rank
-            );
-            $this->session->set_userdata($data);
-        }
+        $row = $this->login_m->getrow($uid,$pwd);
+
+
+        $data=array(
+            "uid" => $row->uid,
+            "rank" => $row->rank,
+        );
+
+        $this->session->set_userdata($data);
         $this->load->view("main_header");
         $this->load->view("main_footer");
     }

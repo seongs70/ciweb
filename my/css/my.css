@@ -5,3 +5,16 @@ table {
 .maymargin5 {margin:5px 0px 5px 0px;}
 .mycolor1 { background-color:steelblue; color:white;}
 .mycolor2 { background-color:lightsteelblue;}
+.mythumb_box {
+    font-size:14px; text-align:center;
+    border:1px solid lightgray; padding:3px;
+    margin:5px 0px 5px 0px;
+}
+.mythumb_image{
+    width:150px; height:150px;
+    margin-bottom:3px;
+}
+.mythumb_text{
+    border:1px solid lightgray; background-color:lightsteelblue;
+    padding:3px;
+}

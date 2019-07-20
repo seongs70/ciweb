@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -16,6 +17,7 @@
 
   </head>
 <body>
+
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">판매관리</a>
@@ -53,10 +55,11 @@
               ?>
             </div>
           </li>
+          <li class="nav-item"><a class="nav-link" href="/picture">사진</a></li>
         </ul>
       </div>
 <?
-
+        print_r($_SESSION);
     if(!$this->session->userdata('uid'))
     {
         echo("<a href='#exampleModal' data-toggle='modal' class='btn btn-sm btn-secondary'>로그인</a>");
